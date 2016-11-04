@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.1.0">
+    <infoTributaria>
+        <ambiente>1</ambiente>
+        <tipoEmision>1</tipoEmision>
+        <razonSocial>Datil Tienda</razonSocial>
+        <nombreComercial>Tienda Datil</nombreComercial>
+        <ruc>0992712554001</ruc>
+        <claveAcceso>1410201601099271255400110010020000000091994726610</claveAcceso>
+        <codDoc>01</codDoc>
+        <estab>001</estab>
+        <ptoEmi>002</ptoEmi>
+        <secuencial>0000</secuencial>
+        <dirMatriz>Urdesa Central, Victor Emilio Estrada y Balsamos</dirMatriz>
+    </infoTributaria>
+    <infoFactura>
+        <fechaEmision>14/10/2016</fechaEmision>
+        <dirEstablecimiento>wsfsdfsdfsf</dirEstablecimiento>
+        <obligadoContabilidad>SI</obligadoContabilidad>
+        <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+        <razonSocialComprador>Eduardo Raa</razonSocialComprador>
+        <identificacionComprador>0914617584</identificacionComprador>
+        <direccionComprador>Calle 13 Los Ceibos</direccionComprador>
+        <totalSinImpuestos>600.00</totalSinImpuestos>
+        <totalDescuento>0.00</totalDescuento>
+        <totalConImpuestos>
+            <totalImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>3</codigoPorcentaje>
+                <baseImponible>600.00</baseImponible>
+                <valor>84.00</valor>
+            </totalImpuesto>
+        </totalConImpuestos>
+        <propina>0.00</propina>
+        <importeTotal>684.00</importeTotal>
+        <moneda>DOLAR</moneda>
+    </infoFactura>
+    <detalles>
+        <detalle>
+            <codigoPrincipal>SP</codigoPrincipal>
+            <descripcion>Servicios Profesionales</descripcion>
+            <cantidad>1.000000</cantidad>
+            <precioUnitario>600.000000</precioUnitario>
+            <descuento>0.00</descuento>
+            <precioTotalSinImpuesto>600.00</precioTotalSinImpuesto>
+            <impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>3</codigoPorcentaje>
+                    <tarifa>14.00</tarifa>
+                    <baseImponible>600.00</baseImponible>
+                    <valor>100.00</valor>
+                </impuesto>
+            </impuestos>
+        </detalle>
+    </detalles>
+    <infoAdicional>
+        <campoAdicional nombre="Observación">Compensación solidaria 2%</campoAdicional>
+    </infoAdicional>
+
+</factura>
