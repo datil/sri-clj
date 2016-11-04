@@ -1,6 +1,5 @@
 (ns sri-clj.core
-  (:import [javax.xml.namespace QName]
-           [recepcion.ws.sri.gob.ec RecepcionComprobantesOfflineServiceLocator]))
+  (:import [recepcion.ws.sri.gob.ec RecepcionComprobantesOfflineServiceLocator]))
 
 (def envs {:test (clojure.java.io/as-url "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl")})
 
