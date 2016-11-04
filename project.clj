@@ -5,4 +5,9 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :source-paths ["config", "resources"]
   :java-source-paths ["src/java"]
-  :dependencies [[org.clojure/clojure "1.8.0"]])
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.apache.axis/axis "1.4"]
+                 [javax.xml/jaxrpc-api "1.1"]
+                 [commons-logging/commons-logging "1.2"]
+                 [commons-discovery/commons-discovery "0.5"]
+                 [wsdl4j/wsdl4j "1.6.2"]])
