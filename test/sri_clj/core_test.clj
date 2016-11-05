@@ -57,7 +57,21 @@
     (is (= (:type (first (:messages (first (:receipts (o->m (stub-resp)))))))
            "ERROR"))))
 
-(deftest multiple-messages-are-parsed-test
+(deftest messages-return-empty-strings-test
+  (testing "empty string are returned for nil values"
+    (let [message (new Mensaje)
+          messages (new ComprobanteMensajes (into-array Mensaje [message]))
+          receipt (new Comprobante "12345678910" messages)
+          receipts (new RespuestaSolicitudComprobantes
+                        (into-array Comprobante [receipt]))
+          response (new RespuestaSolicitud "DEVUELTA" receipts)]
+      (is (= (first (:messages (first (:receipts (o->m response)))))
+             {:identifier ""
+              :message ""
+              :additional-information ""
+              :type ""})))))
+
+(deftest support-receipt-with-multiple-messages-test
   (let [message-1 (new Mensaje "35" "DOC INVALIDO" "DESC" "ERROR")
         message-2 (new Mensaje "00" "DOC REPETIDO" "DESC" "ERROR")
         messages (new ComprobanteMensajes (into-array Mensaje [message-1
@@ -77,7 +91,7 @@
                :additional-information "DESC"
                :type "ERROR"}])))))
 
-(deftest supports-empty-messages-test
+(deftest support-receipt-with-empty-messages-list-test
   (let [messages (new ComprobanteMensajes (into-array Mensaje []))
         receipt (new Comprobante "12345678910" messages)
         receipts (new RespuestaSolicitudComprobantes
@@ -89,7 +103,7 @@
               :receipts [{:access-code "12345678910"
                           :messages []}]})))))
 
-(deftest supports-empty-receipts-test
+(deftest supports-response-with-empty-receipts-list-test
   (let [receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante []))
         response (new RespuestaSolicitud "RECIBIDA" receipts)]
