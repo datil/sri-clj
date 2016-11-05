@@ -15,10 +15,10 @@
 
 (defn- parse-messages
   [apojos]
-  (into [] (map #(hash-map :identifier (.getIdentificador %)
-                           :message (.getMensaje %)
-                           :additional-information (.getInformacionAdicional %)
-                           :type (.getTipo %)) apojos)))
+  (into [] (map #(hash-map :identifier (or (.getIdentificador %) "")
+                           :message (or (.getMensaje %) "")
+                           :additional-information (or (.getInformacionAdicional %) "")
+                           :type (or (.getTipo %) "")) apojos)))
 
 (defn- parse-receipts
   [apojos]
