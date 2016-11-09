@@ -13,22 +13,27 @@
   [service xml]
   (.validarComprobante service xml))
 
-(defn- parse-messages
+(defn- messages
   [apojos]
-  (into [] (map #(hash-map :identifier (or (.getIdentificador %) "")
-                           :message (or (.getMensaje %) "")
-                           :additional-information (or (.getInformacionAdicional %) "")
-                           :type (or (.getTipo %) "")) apojos)))
+  (if apojos
+    (into [] (map
+              #(hash-map :identifier (or (.getIdentificador %) "")
+                         :message (or (.getMensaje %) "")
+                         :additional-information (or (.getInformacionAdicional %) "")
+                         :type (or (.getTipo %) ""))
+              apojos))
+    []))
 
-(defn- parse-receipts
+(defn- receipts
   [apojos]
-  (into [] (map #(let [messages (.getMensaje (.getMensajes %))]
-                   (hash-map :access-code (.getClaveAcceso %)
-                             :messages (if messages (parse-messages messages) [])))
-                apojos)))
+  (if apojos
+    (into [] (map
+              #(hash-map :access-code (or (.getClaveAcceso %) "")
+                         :messages (messages (.getMensaje (.getMensajes %))))
+              apojos))
+    []))
 
-(defn o->m
+(defn validation-response
   [pojo]
-  (let [receipts (.getComprobante (.getComprobantes pojo))]
-    {:status (.getEstado pojo)
-     :receipts (if receipts (parse-receipts receipts) [])}))
+  {:status (.getEstado pojo)
+   :receipts (receipts (.getComprobante (.getComprobantes pojo)))})
