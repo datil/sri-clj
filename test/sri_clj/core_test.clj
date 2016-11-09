@@ -7,106 +7,121 @@
            [recepcion.ws.sri.gob.ec RespuestaSolicitudComprobantes]
            [recepcion.ws.sri.gob.ec RespuestaSolicitud]))
 
-(defn stub-resp
-  []
-  (let [mensaje (new Mensaje "35" "DOC INVALIDO" "DESC" "ERROR")
-        mensajes (new ComprobanteMensajes (into-array Mensaje [mensaje]))
-        comprobante (new Comprobante "12345678910" mensajes)
-        comprobantes (new RespuestaSolicitudComprobantes
-                          (into-array Comprobante [comprobante]))]
-    (new RespuestaSolicitud "DEVUELTA" comprobantes)))
+(deftest transforms-response-with-no-receipts-test
+  (let [receipts (new RespuestaSolicitudComprobantes
+                      (into-array Comprobante []))
+        response (new RespuestaSolicitud "RECIBIDA" receipts)]
+    (is (= (validation-response response)
+           {:status "RECIBIDA"
+            :receipts []}))))
 
-(deftest includes-validation-status-test
-  (testing "'status' key is included in the response map"
-    (is (= (:status (o->m (stub-resp)))
-           "DEVUELTA"))))
+(deftest transforms-single-receipt-and-no-messages-test
+  (let [messages (new ComprobanteMensajes (into-array Mensaje []))
+        receipt (new Comprobante "12345678910" messages)
+        receipts (new RespuestaSolicitudComprobantes
+                      (into-array Comprobante [receipt]))
+        response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (validation-response response)
+           {:status "RECHAZADA"
+            :receipts [{:access-code "12345678910"
+                        :messages []}]}))))
 
-(deftest includes-receipts-list-test
-  (testing "'receipts' key contains a list of receipts"
-    (is (= (count (:receipts (o->m (stub-resp))))
-           1))))
+(deftest transforms-single-receipt-and-one-message-test
+  (let [message (new Mensaje "35" "DOC INVALIDO" "DESC" "ERROR")
+        messages (new ComprobanteMensajes (into-array Mensaje [message]))
+        receipt (doto (new Comprobante)
+                  (.setClaveAcceso "12345678910")
+                  (.setMensajes messages))
+        receipts (new RespuestaSolicitudComprobantes
+                      (into-array Comprobante [receipt]))
+        response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (validation-response response)
+           {:status "RECHAZADA"
+            :receipts [{:access-code "12345678910"
+                        :messages [{:identifier "35"
+                                    :message "DOC INVALIDO"
+                                    :additional-information "DESC"
+                                    :type "ERROR"}]}]}))))
 
-(deftest receipts-include-access-code-test
-  (testing "each receipt includes an access code'"
-    (is (= (:access-code (first (:receipts (o->m (stub-resp)))))
-           "12345678910"))))
-
-(deftest receipts-include-messages-test
-  (testing "each receipt includes a list of messages"
-    (is (= (count (:messages (first (:receipts (o->m (stub-resp))))))
-           1))))
-
-(deftest messages-include-identifier-test
-  (testing "each message includes an 'identifier' key"
-    (is (= (:identifier (first (:messages (first (:receipts (o->m (stub-resp)))))))
-           "35"))))
-
-(deftest messages-include-message-test
-  (testing "each message includes a 'message' key"
-    (is (= (:message (first (:messages (first (:receipts (o->m (stub-resp)))))))
-           "DOC INVALIDO"))))
-
-(deftest messages-include-additional-information-test
-  (testing "each message includes an 'additional-information' key"
-    (is (= (:additional-information (first (:messages (first (:receipts
-                                                              (o->m (stub-resp)))))))
-           "DESC"))))
-
-(deftest messages-include-type-test
-  (testing "each message includes a 'type' key"
-    (is (= (:type (first (:messages (first (:receipts (o->m (stub-resp)))))))
-           "ERROR"))))
-
-(deftest messages-return-empty-strings-test
-  (testing "empty string are returned for nil values"
-    (let [message (new Mensaje)
-          messages (new ComprobanteMensajes (into-array Mensaje [message]))
-          receipt (new Comprobante "12345678910" messages)
-          receipts (new RespuestaSolicitudComprobantes
-                        (into-array Comprobante [receipt]))
-          response (new RespuestaSolicitud "DEVUELTA" receipts)]
-      (is (= (first (:messages (first (:receipts (o->m response)))))
-             {:identifier ""
-              :message ""
-              :additional-information ""
-              :type ""})))))
-
-(deftest support-receipt-with-multiple-messages-test
+(deftest transforms-single-receipt-with-multiple-messages-test
   (let [message-1 (new Mensaje "35" "DOC INVALIDO" "DESC" "ERROR")
         message-2 (new Mensaje "00" "DOC REPETIDO" "DESC" "ERROR")
         messages (new ComprobanteMensajes (into-array Mensaje [message-1
                                                                message-2]))
         receipt (new Comprobante "12345678910" messages)
         receipts (new RespuestaSolicitudComprobantes
-                          (into-array Comprobante [receipt]))
+                      (into-array Comprobante [receipt]))
         response (new RespuestaSolicitud "DEVUELTA" receipts)]
-    (testing "multiple messages are parsed"
-      (is (= (:messages (first (:receipts (o->m response))))
-             [{:identifier "35"
-               :message "DOC INVALIDO"
-               :additional-information "DESC"
-               :type "ERROR"}
-              {:identifier "00"
-               :message "DOC REPETIDO"
-               :additional-information "DESC"
-               :type "ERROR"}])))))
+    (is (= (validation-response response)
+           {:status "DEVUELTA"
+            :receipts [{:access-code "12345678910"
+                        :messages [{:identifier "35"
+                                    :message "DOC INVALIDO"
+                                    :additional-information "DESC"
+                                    :type "ERROR"}
+                                   {:identifier "00"
+                                    :message "DOC REPETIDO"
+                                    :additional-information "DESC"
+                                    :type "ERROR"}]}]}))))
 
-(deftest support-receipt-with-empty-messages-list-test
+(deftest transforms-multiple-receipts-with-no-messages-test
   (let [messages (new ComprobanteMensajes (into-array Mensaje []))
+        receipt-1 (new Comprobante "12345678910" messages)
+        receipt-2 (new Comprobante "12345678911" messages)
+        receipts (new RespuestaSolicitudComprobantes
+                      (into-array Comprobante [receipt-1
+                                               receipt-2]))
+        response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (validation-response response)
+           {:status "RECHAZADA"
+            :receipts [{:access-code "12345678910"
+                        :messages []}
+                       {:access-code "12345678911"
+                        :messages []}]}))))
+
+(deftest transforms-multiple-receipts-with-multiple-messages-test
+  (let [message-1 (new Mensaje "35" "DOC INVALIDO" "DESC" "ERROR")
+        message-2 (new Mensaje "00" "DOC REPETIDO" "DESC" "ERROR")
+        messages (new ComprobanteMensajes (into-array Mensaje [message-1
+                                                               message-2]))
+        receipt-1 (new Comprobante "12345678910" messages)
+        receipt-2 (new Comprobante "12345678911" messages)
+        receipts (new RespuestaSolicitudComprobantes
+                      (into-array Comprobante [receipt-1
+                                               receipt-2]))
+        response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (validation-response response)
+           {:status "RECHAZADA"
+            :receipts [{:access-code "12345678910"
+                        :messages [{:identifier "35"
+                                    :message "DOC INVALIDO"
+                                    :additional-information "DESC"
+                                    :type "ERROR"}
+                                   {:identifier "00"
+                                    :message "DOC REPETIDO"
+                                    :additional-information "DESC"
+                                    :type "ERROR"}]}
+                       {:access-code "12345678911"
+                        :messages [{:identifier "35"
+                                    :message "DOC INVALIDO"
+                                    :additional-information "DESC"
+                                    :type "ERROR"}
+                                   {:identifier "00"
+                                    :message "DOC REPETIDO"
+                                    :additional-information "DESC"
+                                    :type "ERROR"}]}]}))))
+
+(deftest transforms-receipts-with-messages-with-null-properties-test
+  (let [message (new Mensaje)
+        messages (new ComprobanteMensajes (into-array Mensaje [message]))
         receipt (new Comprobante "12345678910" messages)
         receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante [receipt]))
         response (new RespuestaSolicitud "DEVUELTA" receipts)]
-    (testing "supports an empty messages array"
-      (is (= (o->m response)
-             {:status "DEVUELTA"
-              :receipts [{:access-code "12345678910"
-                          :messages []}]})))))
-
-(deftest supports-response-with-empty-receipts-list-test
-  (let [receipts (new RespuestaSolicitudComprobantes
-                      (into-array Comprobante []))
-        response (new RespuestaSolicitud "RECIBIDA" receipts)]
-    (testing "support an empty receipts array"
-      (is (= (o->m response)
-             {:status "RECIBIDA" :receipts []})))))
+    (is (= (validation-response response)
+           {:status "DEVUELTA"
+            :receipts [{:access-code "12345678910"
+                        :messages [{:identifier ""
+                                    :message ""
+                                    :additional-information ""
+                                    :type ""}]}]}))))
