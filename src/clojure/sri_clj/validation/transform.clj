@@ -1,17 +1,4 @@
-(ns sri-clj.core
-  (:import [recepcion.ws.sri.gob.ec RecepcionComprobantesOfflineServiceLocator]))
-
-(def envs {:test (clojure.java.io/as-url "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl")})
-
-(defn validation-service
-  [env]
-  (.getRecepcionComprobantesOfflinePort
-   (RecepcionComprobantesOfflineServiceLocator.)
-   (get envs env)))
-
-(defn validate-receipt
-  [service xml]
-  (.validarComprobante service xml))
+(ns sri-clj.validation.transform)
 
 (defn- messages
   [apojos]
@@ -33,7 +20,7 @@
               apojos))
     []))
 
-(defn validation-response
+(defn response
   [pojo]
   {:status (.getEstado pojo)
    :receipts (receipts (.getComprobante (.getComprobantes pojo)))})
