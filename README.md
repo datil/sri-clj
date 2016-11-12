@@ -49,7 +49,12 @@ Envía el documento firmado al SRI para su validación.
 
 ``` clojure
 (sri/validate-receipt :test (slurp ("resources/factura_firmada.xml")))
-; -> {:status "DEVUELTA", :receipts [{:access-code "1410201601099271255400110010020000000091994726610", :messages [{:type "ERROR", :additional-information "", :identifier "43", :message "CLAVE ACCESO REGISTRADA"}]}]}
+; -> {:status "DEVUELTA",
+;     :receipts [{:access-code "1410201601099271255400110010020000000091994726610",
+;     :messages [{:type "ERROR",
+;                 :additional-information "",
+;                 :identifier "43",
+;                 :message "CLAVE ACCESO REGISTRADA"}]}]}
 ```
 
 ## Autorización de comprobantes
@@ -58,15 +63,15 @@ Consulta el estado de autorización del comprobante en el SRI.
 ``` clojure
 (sri/authorize-receipt :test (slurp ("resources/factura_recibida.xml")))
 ; -> {:access-code "0503201201176001321000110010030009900641234567814"
-      :receipt-count "1"
-      :authorizations [{:status "AUTORIZADO"
-                        :authorization-number "0503201201176001321000110010030009900641234567814"
-                        :authorization-date "2012-03-05T16:57:34.997-05:00"
-                        :environment "PRUEBAS"
-                        :receipt "<![CDATA[<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0">...</factura>]]>"
-                        :messages [{:identifier "60"
-                                    :message "PROCESO DE PRUEBAS"
-                                    :type "ADVERTENCIA"}]}]}
+;     :receipt-count "1"
+;     :authorizations [{:status "AUTORIZADO"
+;                       :authorization-number "0503201201176001321000110010030009900641234567814"
+;                       :authorization-date "2012-03-05T16:57:34.997-05:00"
+;                       :environment "PRUEBAS"
+;                       :receipt "<![CDATA[<?xml version="1.0" encoding="UTF-8"?> <factura id="comprobante" version="1.0.0">...</factura>]]>"
+;                       :messages [{:identifier "60"
+;                                   :message "PROCESO DE PRUEBAS"
+;                                   :type "ADVERTENCIA"}]}]}
 ```
 
 ## Ejecuta las pruebas
