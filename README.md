@@ -18,13 +18,7 @@ Librería Clojure para emisión de comprobantes electrónicos cumpliendo con el 
 [sri-clj "1.0.0"]
 ```
 
-### Importa la librería en tu programa
-
-```clojure
-(ns mi.programa (require [sri-clj.api :as sri]))
-```
-
-### Cómo configurar los ambientes del SRI
+### Configura los ambientes del SRI
 
 `sri-clj` viene pre-configurada con los ambientes de pruebas y producción del SRI. Al llamar a cada función debes especificar el ambiente que quieres utilizar: `:test` (pruebas) o `:prod` (producción).
 
@@ -48,7 +42,8 @@ El primer paso de la emisión de un comprobante es el firmado electrónico.
 Envía el documento firmado al SRI para su validación.
 
 ``` clojure
-(sri/validate-receipt :test (slurp ("resources/factura_firmada.xml")))
+(ns mi.programa (require [sri-clj.validation :as val]))
+(val/validate-receipt :test (slurp ("resources/factura_firmada.xml")))
 ; -> {:status "DEVUELTA",
 ;     :receipts [{:access-code "1410201601099271255400110010020000000091994726610",
 ;     :messages [{:type "ERROR",
@@ -61,7 +56,8 @@ Envía el documento firmado al SRI para su validación.
 Consulta el estado de autorización del comprobante en el SRI.
 
 ``` clojure
-(sri/authorize-receipt :test (slurp ("resources/factura_recibida.xml")))
+(ns mi.programa (require [sri-clj.authorization :as aut]))
+(aut/authorize-receipt :test (slurp ("resources/factura_recibida.xml")))
 ; -> {:access-code "0503201201176001321000110010030009900641234567814"
 ;     :receipt-count "1"
 ;     :authorizations [{:status "AUTORIZADO"
