@@ -1,6 +1,6 @@
-(ns sri-clj.core-test
+(ns sri-clj.validation.transform-test
   (:require [clojure.test :refer :all]
-            [sri-clj.core :refer :all])
+            [sri-clj.validation.transform :refer :all])
   (:import [recepcion.ws.sri.gob.ec Mensaje]
            [recepcion.ws.sri.gob.ec ComprobanteMensajes]
            [recepcion.ws.sri.gob.ec Comprobante]
@@ -10,8 +10,8 @@
 (deftest transforms-response-with-no-receipts-test
   (let [receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante []))
-        response (new RespuestaSolicitud "RECIBIDA" receipts)]
-    (is (= (validation-response response)
+        soap-response (new RespuestaSolicitud "RECIBIDA" receipts)]
+    (is (= (response soap-response)
            {:status "RECIBIDA"
             :receipts []}))))
 
@@ -20,8 +20,8 @@
         receipt (new Comprobante "12345678910" messages)
         receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante [receipt]))
-        response (new RespuestaSolicitud "RECHAZADA" receipts)]
-    (is (= (validation-response response)
+        soap-response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (response soap-response)
            {:status "RECHAZADA"
             :receipts [{:access-code "12345678910"
                         :messages []}]}))))
@@ -34,8 +34,8 @@
                   (.setMensajes messages))
         receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante [receipt]))
-        response (new RespuestaSolicitud "RECHAZADA" receipts)]
-    (is (= (validation-response response)
+        soap-response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (response soap-response)
            {:status "RECHAZADA"
             :receipts [{:access-code "12345678910"
                         :messages [{:identifier "35"
@@ -51,8 +51,8 @@
         receipt (new Comprobante "12345678910" messages)
         receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante [receipt]))
-        response (new RespuestaSolicitud "DEVUELTA" receipts)]
-    (is (= (validation-response response)
+        soap-response (new RespuestaSolicitud "DEVUELTA" receipts)]
+    (is (= (response soap-response)
            {:status "DEVUELTA"
             :receipts [{:access-code "12345678910"
                         :messages [{:identifier "35"
@@ -71,8 +71,8 @@
         receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante [receipt-1
                                                receipt-2]))
-        response (new RespuestaSolicitud "RECHAZADA" receipts)]
-    (is (= (validation-response response)
+        soap-response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (response soap-response)
            {:status "RECHAZADA"
             :receipts [{:access-code "12345678910"
                         :messages []}
@@ -89,8 +89,8 @@
         receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante [receipt-1
                                                receipt-2]))
-        response (new RespuestaSolicitud "RECHAZADA" receipts)]
-    (is (= (validation-response response)
+        soap-response (new RespuestaSolicitud "RECHAZADA" receipts)]
+    (is (= (response soap-response)
            {:status "RECHAZADA"
             :receipts [{:access-code "12345678910"
                         :messages [{:identifier "35"
@@ -117,8 +117,8 @@
         receipt (new Comprobante "12345678910" messages)
         receipts (new RespuestaSolicitudComprobantes
                       (into-array Comprobante [receipt]))
-        response (new RespuestaSolicitud "DEVUELTA" receipts)]
-    (is (= (validation-response response)
+        soap-response (new RespuestaSolicitud "DEVUELTA" receipts)]
+    (is (= (response soap-response)
            {:status "DEVUELTA"
             :receipts [{:access-code "12345678910"
                         :messages [{:identifier ""
