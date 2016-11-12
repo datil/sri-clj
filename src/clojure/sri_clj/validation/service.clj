@@ -4,5 +4,4 @@
 (defn service
   [url]
   (.getRecepcionComprobantesOfflinePort
-   (RecepcionComprobantesOfflineServiceLocator.)
-   url))
+   (RecepcionComprobantesOfflineServiceLocator.) (clojure.java.io/as-url url)))
