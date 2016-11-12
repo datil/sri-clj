@@ -1,6 +1,7 @@
 # sri-clj
 
 [![Build Status](https://travis-ci.org/datil/sri-clj.svg?branch=master)](https://travis-ci.org/datil/sri-clj)
+[![License](https://img.shields.io/badge/licence-Eclipse%20Public%20License-blue.svg)](https://github.com/datil/sri-clj/blob/master/LICENSE)
 
 Librería Clojure para envío y autorización de comprobantes electrónicos al Servicio de Rentas Internas de Ecuador.
 
