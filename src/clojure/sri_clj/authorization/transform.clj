@@ -35,12 +35,4 @@
   [pojo]
   {:access-code (.getClaveAccesoConsultada pojo)
    :receipt-count (.getNumeroComprobantes pojo)
-   :authorizations [{:status "AUTORIZADO"
-                     :authorization-number "123"
-                     :authorization-date "2016-11-12T13:14:15"
-                     :environment "PRUEBAS"
-                     :receipt "<xml>stub</xml>"
-                     :messages [{:identifier "60"
-                                 :message "PROCESO DE PRUEBAS"
-                                 :informacion-adicional "Test"
-                                 :type "ADVERTENCIA"}]}]})
+   :authorizations (authorizations (.getAutorizacion (.getAutorizaciones pojo)))})
