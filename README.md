@@ -42,7 +42,7 @@ El primer paso de la emisión de un comprobante es el firmado electrónico.
 Envía el documento firmado al SRI para su validación.
 
 ``` clojure
-(ns mi.programa (require [sri-clj.validation :as val]))
+(require '[sri-clj.validation :as val])
 (val/validate-receipt :test (slurp ("resources/factura_firmada.xml")))
 ; -> {:status "DEVUELTA",
 ;     :receipts [{:access-code "1410201601099271255400110010020000000091994726610",
@@ -56,7 +56,7 @@ Envía el documento firmado al SRI para su validación.
 Consulta el estado de autorización del comprobante en el SRI.
 
 ``` clojure
-(ns mi.programa (require [sri-clj.authorization :as aut]))
+(require '[sri-clj.authorization :as aut])
 (aut/authorize-receipt :test (slurp ("resources/factura_recibida.xml")))
 ; -> {:access-code "0503201201176001321000110010030009900641234567814"
 ;     :receipt-count "1"
