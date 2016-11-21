@@ -1,5 +1,5 @@
 (defproject co.datil/sri-clj "0.1.0"
-  :description "Librería Clojure para los servicios web del Servicio de Rentas Internas."
+  :description "Librería Clojure para emisión de comprobantes electrónicos en Ecuador."
   :url "https://github.com/datil/sri-clj"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -13,4 +13,5 @@
                  [commons-logging/commons-logging "1.2"]
                  [commons-discovery/commons-discovery "0.5"]
                  [wsdl4j/wsdl4j "1.6.2"]
-                 [environ "1.1.0"]])
+                 [environ "1.1.0"]]
+  :plugins [[lein-codox "0.10.1"]])

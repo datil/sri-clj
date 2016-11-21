@@ -1,6 +1,6 @@
-(ns sri-clj.config-test
+(ns datil.sri-clj.config-test
   (:require [clojure.test :refer :all]
-            [sri-clj.config :refer :all]))
+            [datil.sri-clj.config :refer :all]))
 
 (deftest returns-correct-env-test
   (with-redefs [envs {:sri-validation {:test "val-test"

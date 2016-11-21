@@ -1,4 +1,4 @@
-(ns sri-clj.config
+(ns datil.sri-clj.config
   (:require [environ.core :as env]))
 
 (def local-conf (read-string (slurp "config/sri_envs.edn")))

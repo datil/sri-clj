@@ -1,6 +1,6 @@
-(ns sri-clj.validation.transform-test
+(ns datil.sri-clj.validation.transform-test
   (:require [clojure.test :refer :all]
-            [sri-clj.validation.transform :refer :all])
+            [datil.sri-clj.validation.transform :refer :all])
   (:import [recepcion.ws.sri.gob.ec Mensaje]
            [recepcion.ws.sri.gob.ec ComprobanteMensajes]
            [recepcion.ws.sri.gob.ec Comprobante]
