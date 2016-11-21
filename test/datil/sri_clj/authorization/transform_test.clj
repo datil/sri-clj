@@ -1,6 +1,6 @@
-(ns sri-clj.authorization.transform-test
+(ns datil.sri-clj.authorization.transform-test
   (:require [clojure.test :refer :all]
-            [sri-clj.authorization.transform :refer :all]
+            [datil.sri-clj.authorization.transform :refer :all]
             [clojure.instant :as i])
   (:import [autorizacion.ws.sri.gob.ec Autorizacion]
            [autorizacion.ws.sri.gob.ec AutorizacionMensajes]

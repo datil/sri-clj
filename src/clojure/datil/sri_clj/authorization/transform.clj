@@ -1,4 +1,4 @@
-(ns sri-clj.authorization.transform
+(ns datil.sri-clj.authorization.transform
   (:import [autorizacion.ws.sri.gob.ec Autorizacion]
            [autorizacion.ws.sri.gob.ec AutorizacionMensajes]
            [autorizacion.ws.sri.gob.ec Mensaje]

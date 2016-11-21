@@ -1,4 +1,4 @@
-(ns sri-clj.authorization.service
+(ns datil.sri-clj.authorization.service
   (:import [autorizacion.ws.sri.gob.ec
             AutorizacionComprobantesOfflineServiceLocator]))
 
