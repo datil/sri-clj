@@ -4,7 +4,6 @@
             [datil.sri-clj.config :as c]))
 
 (defn validate-receipt
-  "Envía el comprobante al SRI para su validación."
   [env xml]
   (->> (.getBytes xml)
        (.validarComprobante (s/service (c/get-url :sri-validation env)))
