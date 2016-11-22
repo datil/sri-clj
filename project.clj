@@ -1,4 +1,4 @@
-(defproject co.datil/sri-clj "0.1.0"
+(defproject co.datil/sri-clj "0.1.1"
   :description "Librería Clojure para emisión de comprobantes electrónicos en Ecuador."
   :url "https://github.com/datil/sri-clj"
   :license {:name "Eclipse Public License"
