@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/datil/sri-clj.svg?branch=master)](https://travis-ci.org/datil/sri-clj)
 [![License](https://img.shields.io/badge/licence-Eclipse%20Public%20License-blue.svg)](https://github.com/datil/sri-clj/blob/master/LICENSE)
+[![Clojars Project](https://img.shields.io/clojars/v/co.datil/sri-clj.svg)](https://clojars.org/co.datil/sri-clj)
+
 
 `sri-clj` es una librería de funciones escritas en [Clojure](http://www.clojure.org) para la emisión de comprobantes electrónicos en modo `off-line` cumpliendo con el [estándar del Servicio de Rentas Internas de Ecuador](http://www.sri.gob.ec/web/guest/10116).
 
