@@ -14,4 +14,5 @@
                  [commons-discovery/commons-discovery "0.5"]
                  [wsdl4j/wsdl4j "1.6.2"]
                  [environ "1.1.0"]]
-  :plugins [[lein-codox "0.10.1"]])
+  :plugins [[lein-codox "0.10.1"]]
+  :codox {:metadata {:doc/format :markdown}})
