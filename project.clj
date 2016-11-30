@@ -12,6 +12,8 @@
                  [commons-logging/commons-logging "1.2"]
                  [commons-discovery/commons-discovery "0.5"]
                  [wsdl4j/wsdl4j "1.6.2"]
-                 [environ "1.1.0"]]
+                 [environ "1.1.0"]
+                 [org.clojure/data.xml "0.0.8"]
+                 [co.datil/xml-validation "0.1.0"]]
   :plugins [[lein-codox "0.10.1"]]
   :codox {:metadata {:doc/format :markdown}})
