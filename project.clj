@@ -14,6 +14,8 @@
                  [wsdl4j/wsdl4j "1.6.2"]
                  [environ "1.1.0"]
                  [selmer "1.10.2"]]
-  :profiles{:dev {:dependencies [[co.datil/xml-validation "0.1.0"]]}}
+  :profiles{:dev {:dependencies [[co.datil/xml-validation "0.1.0"]
+                                 [com.github.kyleburton/clj-xpath "1.4.9"]
+                                 [org.clojure/core.async "0.2.395"]]}}
   :plugins [[lein-codox "0.10.1"]]
   :codox {:metadata {:doc/format :markdown}})

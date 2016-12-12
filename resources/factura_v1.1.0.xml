@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.1.0">
+    <infoTributaria>
+        <ambiente>{{infoTributaria.ambiente}}</ambiente>
+        <tipoEmision>{{infoTributaria.tipoEmision}}</tipoEmision>
+        <razonSocial>{{infoTributaria.razonSocial}}</razonSocial>
+        <nombreComercial>{{infoTributaria.nombreComercial}}</nombreComercial>
+        <ruc>{{infoTributaria.ruc}}</ruc>
+        <claveAcceso>{{infoTributaria.claveAcceso}}</claveAcceso>
+        <codDoc>{{infoTributaria.codDoc}}</codDoc>
+        <estab>{{infoTributaria.estab}}</estab>
+        <ptoEmi>{{infoTributaria.ptoEmi}}</ptoEmi>
+        <secuencial>{{infoTributaria.secuencial}}</secuencial>
+        <dirMatriz>{{infoTributaria.dirMatriz}}</dirMatriz>
+    </infoTributaria>
+    <infoFactura>
+        <fechaEmision>{{infoFactura.fechaEmision}}</fechaEmision>
+        <dirEstablecimiento>{{infoFactura.dirEstablecimiento}}</dirEstablecimiento>
+        <contribuyenteEspecial>{{infoFactura.contribuyenteEspecial}}</contribuyenteEspecial>
+        <obligadoContabilidad>{{infoFactura.obligadoContabilidad}}</obligadoContabilidad>
+        {% if infoFactura.comercioExterior %}
+        <comercioExterior>{{infoFactura.comercioExterior}}</comercioExterior>
+        {% endif %}
+       {% if infoFactura.incoTermFactura %}
+        <incoTermFactura>{{infoFactura.incoTermFactura}}</incoTermFactura>
+        {% endif %}
+        {% if infoFactura.lugarIncoTerm %}
+        <lugarIncoTerm>{{infoFactura.lugarIncoTerm}}</lugarIncoTerm>
+        {% endif %}
+        {% if infoFactura.paisOrigen %}
+        <paisOrigen>{{infoFactura.paisOrigen}}</paisOrigen>
+        {% endif %}
+        {% if infoFactura.puertoEmbarque %}
+        <puertoEmbarque>{{infoFactura.puertoEmbarque}}</puertoEmbarque>
+        {% endif %}
+        {% if infoFactura.puertoDestino %}
+        <puertoDestino>{{infoFactura.puertoDestino}}</puertoDestino>
+        {% endif %}
+        {% if infoFactura.paisDestino %}
+        <paisDestino>{{infoFactura.paisDestino}}</paisDestino>
+        {% endif %}
+        {% if infoFactura.paisAdquisicion %}
+        <paisAdquisicion>{{infoFactura.paisAdquisicion}}</paisAdquisicion>
+        {% endif %}
+        <tipoIdentificacionComprador>{{infoFactura.tipoIdentificacionComprador}}</tipoIdentificacionComprador>
+        <guiaRemision>{{infoFactura.guiaRemision}}</guiaRemision>
+        <razonSocialComprador>{{infoFactura.razonSocialComprador}}</razonSocialComprador>
+        <identificacionComprador>{{infoFactura.identificacionComprador}}</identificacionComprador>
+        <direccionComprador>{{infoFactura.direccionComprador}}</direccionComprador>
+        <totalSinImpuestos>{{infoFactura.totalSinImpuestos}}</totalSinImpuestos>
+        {% if infoFactura.totalSubsidio %}
+        <totalSubsidio>{{infoFactura.totalSubsidio}}</totalSubsidio>
+        {% endif %}
+        <totalDescuento>{{infoFactura.totalDescuento}}</totalDescuento>
+        <totalConImpuestos>
+            {% for totalImpuesto in infoFactura.totalConImpuestos %}
+            <totalImpuesto>
+                <codigo>{{totalImpuesto.codigo}}</codigo>
+                <codigoPorcentaje>{{totalImpuesto.codigoPorcentaje}}</codigoPorcentaje>
+                <baseImponible>{{totalImpuesto.baseImponible}}</baseImponible>
+                <valor>{{totalImpuesto.valor}}</valor>
+            </totalImpuesto>
+            {% endfor %}
+        </totalConImpuestos>
+        {% if infoFactura.compensaciones %}
+        <compensaciones>
+        {% for compensacion in infoFactura.compensaciones %}
+            <compensacion>
+                <codigo>{{compensacion.codigo}}</codigo>
+                <tarifa>{{compensacion.tarifa}}</tarifa>
+                <valor>{{compensacion.valor}}</valor>
+            </compensacion>
+        {% endfor %}
+        </compensaciones>
+        {% endif %}
+        {% if infoFactura.fleteInternacional %}
+        <fleteInternacional>{{infoFactura.fleteInternacional}}</fleteInternacional>
+        {% endif %}
+        {% if infoFactura.seguroInternacional %}
+        <seguroInternacional>{{infoFactura.seguroInternacional}}</seguroInternacional>
+        {% endif %}
+        {% if infoFactura.gastosAduaneros %}
+        <gastosAduaneros>{{infoFactura.gastosAduaneros}}</gastosAduaneros>
+        {% endif %}
+        {% if infoFactura.gastosTransporteOtros %}
+        <gastosTransporteOtros>{{infoFactura.gastosTransporteOtros}}</gastosTransporteOtros>
+        {% endif %}
+        {% if infoFactura.propina %}
+        <propina>{{infoFactura.propina}}</propina>
+        {% endif %}
+        <importeTotal>{{infoFactura.importeTotal}}</importeTotal>
+        {% if infoFactura.moneda %}
+        <moneda>{{infoFactura.moneda}}</moneda>
+        {%endif%}
+        {% if infoFactura.pagos %}
+        <pagos>
+            {% for pago in infoFactura.pagos %}
+            <pago>
+                <formaPago>{{pago.formaPago}}</formaPago>
+                <total>{{pago.total}}</total>
+                {% if pago.plazo %}
+                <plazo>{{pago.plazo}}</plazo>
+                {% endif %}
+                {% if pago.unidadTiempo %}
+                <unidadTiempo>{{pago.unidadTiempo}}</unidadTiempo>
+                {% endif %}
+            </pago>
+            {% endfor %}
+        </pagos>
+        {% endif %}
+        {% if infoFactura.valorRetIva %}
+        <valorRetIva>{{infoFactura.valorRetIva}}</valorRetIva>
+        {% endif %}
+        {% if infoFactura.valorRetRenta %}
+        <valorRetRenta>{{infoFactura.valorRetRenta}}</valorRetRenta>
+        {% endif %}
+    </infoFactura>
+    <detalles>
+        {% for detalle in detalles %}
+        <detalle>
+            {% if detalle.codigoPrincipal %}
+            <codigoPrincipal>{{detalle.codigoPrincipal}}</codigoPrincipal>
+            {% endif %}
+            {% if detalle.codigoAuxiliar %}
+            <codigoAuxiliar>{{detalle.codigoAuxiliar}}</codigoAuxiliar>
+            {% endif %}
+            <descripcion>{{detalle.descripcion}}</descripcion>
+            {% if detalle.unidadMedida %}
+            <unidadMedida>{{detalle.unidadMedida}}</unidadMedida>
+            {% endif %}
+            <cantidad>{{detalle.cantidad}}</cantidad>
+            <precioUnitario>{{detalle.precioUnitario}}</precioUnitario>
+            {% if detalle.precioSinSubsidio %}
+            <precioSinSubsidio>{{detalle.precioSinSubsidio}}</precioSinSubsidio>
+            {% endif %}
+            <descuento>{{detalle.descuento}}</descuento>
+            <precioTotalSinImpuesto>{{detalle.precioTotalSinImpuesto}}</precioTotalSinImpuesto>
+            {% if detalle.detallesAdicionales %}
+            <detallesAdicionales>
+            {% for detalleAdicional in detalle.detallesAdicionales %}
+            <detAdicional nombre="{{detalleAdicional.nombre}}" valor="{{detalleAdicional.valor}}"/>
+            {% endfor %}
+            </detallesAdicionales>
+            {% endif %}
+            <impuestos>
+                {% for impuesto in detalle.impuestos %}
+                <impuesto>
+                    <codigo>{{impuesto.codigo}}</codigo>
+                    <codigoPorcentaje>{{impuesto.codigoPorcentaje}}</codigoPorcentaje>
+                    <tarifa>{{impuesto.tarifa}}</tarifa>
+                    <baseImponible>{{impuesto.baseImponible}}</baseImponible>
+                    <valor>{{impuesto.valor}}</valor>
+                </impuesto>
+                {% endfor %}
+            </impuestos>
+        </detalle>
+        {% endfor %}
+    </detalles>
+    {% if retenciones %}
+    <retenciones>
+     {% for retencion in retenciones %}
+         <retencion>
+             <codigo>{{ retencion.codigo }}</codigo>
+             <codigoPorcentaje>{{ retencion.codigoPorcentaje }}</codigoPorcentaje>
+             <tarifa>{{ retencion.tarifa }}</tarifa>
+             <valor>{{ retencion.valor }}</valor>
+         </retencion>
+     {% endfor %}
+    </retenciones>
+    {% endif %}
+    {% if infoAdicional %}
+    <infoAdicional>
+    {% for campoAdicional in infoAdicional %}
+    <campoAdicional nombre="{{campoAdicional.nombre}}">{{campoAdicional.valor}}</campoAdicional>
+    {% endfor %}
+    </infoAdicional>
+    {% endif %}
+</factura>
