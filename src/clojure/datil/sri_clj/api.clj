@@ -10,7 +10,7 @@
 ;;; (defn sign-receipt
 ;;; [])
 
-(defn validate-receipt
+(defn validate
   "`env` corresponde al ambiente a utilizar: `:test` (ambiente de pruebas) o
   `:prod` (ambiente de producción)
 
@@ -24,7 +24,7 @@
        (.validarComprobante (vs/service (c/get-url :sri-validation env)))
        (vt/response)))
 
-(defn authorize-receipt
+(defn authorize
   "`env` corresponde al ambiente a utilizar: `:test` (ambiente de pruebas) o
   `:prod` (ambiente de producción)
 
