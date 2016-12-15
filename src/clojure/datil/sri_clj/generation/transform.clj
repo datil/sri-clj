@@ -3,6 +3,6 @@
 
 (selmer.parser/cache-off!)
 
-(defn receipt
-  [data]
-  (render (slurp "resources/factura_v1.1.0.xml") data))
+(defn generate [doc-type data]
+  (cond
+    (= doc-type :invoice) (render (slurp "resources/factura_v1.1.0.xml") data)))
