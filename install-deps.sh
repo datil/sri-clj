@@ -1,0 +1,9 @@
+lein localrepo install lib/MITyCLibAPI-1.1.7.jar local/MITyCLibAPI 1.1.7
+lein localrepo install lib/MITyCLibCert-1.1.7.jar local/MITyCLibCert 1.1.7
+lein localrepo install lib/MITyCLibCrypt-1.1.7.jar local/MITyCLibCrypt 1.1.7
+lein localrepo install lib/MITyCLibOCSP-1.1.7.jar local/MITyCLibOCSP 1.1.7
+lein localrepo install lib/MITyCLibPolicy-1.1.7.jar local/MITyCLibPolicy 1.1.7
+lein localrepo install lib/MITyCLibTrust-1.1.7.jar local/MITyCLibTrust 1.1.7
+lein localrepo install lib/MITyCLibTSA-1.1.7.jar local/MITyCLibTSA 1.1.7
+lein localrepo install lib/MITyCLibXADES-1.1.7.jar local/MITyCLibXADES 1.1.7
+lein localrepo install lib/xmlsec-1.4.2-ADSI-1.1.jar local/xmlsec 1.4.2-ADSI-1.1

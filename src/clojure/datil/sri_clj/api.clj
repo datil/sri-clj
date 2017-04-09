@@ -4,13 +4,23 @@
             [datil.sri-clj.validation.transform :as vt]
             [datil.sri-clj.authorization.service :as as]
             [datil.sri-clj.authorization.transform :as at]
+            [datil.sri-clj.signing.signer :as sg]
             [datil.sri-clj.config :as c]))
 
-;;; TO-DO
-;;; (defn sign-receipt
-;;; [])
+(defn sign
+  "`xml` es una cadena de texto que contiene la representación XML a firmar.
 
-(defn validate-receipt
+  `cert` es la URL del certificado (PFX o P12) para la firma electrónica.
+
+  `passwd` es la contraseña del certificado.
+
+  Firma la representación XML con el estándar XAdES.
+
+  Retorna un mapa con la representación XMl firmada."
+  [xml cert passwd]
+  (sg/sign xml cert passwd))
+
+(defn validate
   "`env` corresponde al ambiente a utilizar: `:test` (ambiente de pruebas) o
   `:prod` (ambiente de producción)
 
@@ -24,7 +34,7 @@
        (.validarComprobante (vs/service (c/get-url :sri-validation env)))
        (vt/response)))
 
-(defn authorize-receipt
+(defn authorize
   "`env` corresponde al ambiente a utilizar: `:test` (ambiente de pruebas) o
   `:prod` (ambiente de producción)
 
