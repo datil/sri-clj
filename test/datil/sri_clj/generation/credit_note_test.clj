@@ -28,3 +28,6 @@
       ($x:text "/notaCredito/infoTributaria/ptoEmi" credit-note) "001"
       ($x:text "/notaCredito/infoTributaria/secuencial" credit-note) "000000001"
       ($x:text "/notaCredito/infoTributaria/dirMatriz" credit-note) "dirMatriz0")))
+
+(deftest generates-basic-credit-note-fields-test
+  (let [credit-note ]))
