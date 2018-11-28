@@ -1,7 +1,8 @@
 (ns datil.sri-clj.config
-  (:require [environ.core :as env]))
+  (:require [environ.core :as env]
+            [clojure.java.io :as io]))
 
-(def local-conf (read-string (slurp "config/sri_envs.edn")))
+(def local-conf (read-string (slurp (io/resource "sri_envs.edn"))))
 
 (def envs {:sri-validation {:test (env/env :sri-validation-test
                                            (:sri-validation-test local-conf))
